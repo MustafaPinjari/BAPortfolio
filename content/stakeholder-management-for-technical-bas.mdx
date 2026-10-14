@@ -1,0 +1,39 @@
+---
+title: "Stakeholder Elicitation: Conducting High-Impact Interviews and Workshops"
+publishedAt: "2026-02-05"
+updatedAt: "2026-02-05"
+author: "Mustafa Pinjari"
+summary: "Proven strategies for breaking down silos, resolving conflicting executive priorities, and drawing out unstated technical requirements."
+image: "/blog-stakeholder-management.png"
+---
+
+The biggest risk in software delivery isn't flawed code—it's building the wrong system with total technical precision. 
+
+Elicitation is the art of uncovering unspoken assumptions, regulatory constraints, and operational bottlenecks that stakeholders rarely articulate in formal meetings.
+
+## 1. The 5 Whys & Root Cause Elicitation
+
+Stakeholders almost universally present **symptoms** as requirements:
+- *Stakeholder*: "We need a faster export button on the invoice grid."
+- *BA (Why 1)*: "Why do users need to export the grid daily?" → "To cross-check payment statuses."
+- *BA (Why 2)*: "Why aren't payment statuses visible inside the platform?" → "Because reconciliation happens in another tool."
+- *BA (Why 3)*: "Why isn't that tool integrated?" → "We never automated the webhook."
+
+**True Requirement**: Real-time payment webhook integration, rendering manual CSV exports completely obsolete.
+
+## 2. Managing Stakeholder Conflict via RACI Matrices
+
+When marketing, compliance, and engineering disagree on feature behavior, an explicit **RACI** matrix restores momentum:
+
+- **Responsible (R)**: Who builds and executes the feature.
+- **Accountable (A)**: The single business owner with final approval authority.
+- **Consulted (C)**: Subject matter experts providing input (Legal, InfoSec, UX).
+- **Informed (I)**: Stakeholders notified of milestone progress.
+
+## 3. Collaborative Discovery Workshops
+
+Instead of endless email threads, organize time-boxed **Event Storming** and **User Story Mapping** sessions with cross-functional participants to align on product priorities in a single afternoon.
+
+---
+
+> **Next Steps**: Turn stakeholder consensus into defensible releases using [Agile Backlog Refinement (MoSCoW vs. RICE)](/blog/agile-backlog-refinement-and-prioritization).

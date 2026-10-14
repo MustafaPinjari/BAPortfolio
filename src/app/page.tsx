@@ -14,27 +14,123 @@ import { ArrowUpRight } from "lucide-react";
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${DATA.url}/#person`,
+        name: DATA.name,
+        jobTitle: "Business Analyst & Technical Product Builder",
+        description:
+          "Business Analyst specializing in requirements engineering, BRD/FRD documentation, user stories with Gherkin criteria, SQL analytics, BPMN process workflows, and Agile delivery.",
+        url: DATA.url,
+        image: `${DATA.url}/me.png`,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Pune",
+          addressRegion: "Maharashtra",
+          addressCountry: "India",
+        },
+        alumniOf: [
+          {
+            "@type": "EducationalOrganization",
+            name: "Savitribai Phule Pune University (SPPU)",
+          },
+          {
+            "@type": "EducationalOrganization",
+            name: "Sandip University, Nashik",
+          },
+        ],
+        sameAs: [
+          DATA.contact.social.LinkedIn.url,
+          DATA.contact.social.GitHub.url,
+        ],
+        knowsAbout: [
+          "Business Analysis",
+          "Technical Business Analysis",
+          "Requirements Engineering",
+          "Business Requirements Document (BRD)",
+          "Functional Requirements Document (FRD)",
+          "User Stories & Gherkin Acceptance Criteria",
+          "Process Mapping & BPMN 2.0",
+          "Gap Analysis",
+          "SQL & Product Diagnostics",
+          "Agile Scrum Backlog Prioritization",
+          "REST API Contracts",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${DATA.url}/#website`,
+        url: DATA.url,
+        name: `${DATA.name} - Business Analyst Portfolio`,
+        publisher: {
+          "@id": `${DATA.url}/#person`,
+        },
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${DATA.url}/#profilepage`,
+        url: DATA.url,
+        name: `${DATA.name} | Business Analyst Portfolio`,
+        mainEntity: {
+          "@id": `${DATA.url}/#person`,
+        },
+      },
+    ],
+  };
+
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
+        <div className="w-full space-y-8">
           <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
-            <div className="gap-2 flex flex-col order-2 md:order-1">
+            <div className="gap-3 flex flex-col order-2 md:order-1">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-primary/10 text-primary border border-primary/20">
+                  <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Business Analyst • Pune, India
+                </span>
+              </div>
+              <h1 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl">
+                <BlurFadeText
+                  delay={BLUR_FADE_DELAY}
+                  yOffset={8}
+                  text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                />
+              </h1>
               <BlurFadeText
+                className="text-muted-foreground max-w-[750px] md:text-lg leading-relaxed"
                 delay={BLUR_FADE_DELAY}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                text="Business Analyst with a technical background in requirements engineering, process analysis, SQL diagnostics, API workflows, Agile delivery, and AI-powered product development. Explore practical projects, business analysis documentation, and technical case studies."
               />
-              <BlurFadeText
-                className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Link
+                  href="#contact"
+                  className="inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-xs"
+                >
+                  Contact for Opportunities
+                </Link>
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs font-medium border border-border bg-card/80 hover:bg-card text-foreground transition-colors"
+                >
+                  Read BA Documentation & Journal →
+                </Link>
+              </div>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
               <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                <AvatarImage alt={`${DATA.name} - Business Analyst`} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>

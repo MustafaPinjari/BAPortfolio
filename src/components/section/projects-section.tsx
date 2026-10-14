@@ -23,15 +23,13 @@ export default function ProjectsSection() {
                         />
                     </div>
                     <div className="flex flex-col gap-y-3 items-center justify-center">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Check out my latest work</h2>
-                        <p className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center">
-                            I&apos;ve worked on a variety of projects, from simple
-                            websites to complex web applications. Here are a few of my
-                            favorites.
+                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Business Analysis & Product Case Studies</h2>
+                        <p className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center max-w-2xl">
+                            Real-world business systems engineered from stakeholder problem discovery to functional specifications (BRD/FRD), BPMN process mapping, and technical delivery.
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto auto-rows-fr">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 w-full mx-auto auto-rows-fr">
                     {DATA.projects.map((project, id) => (
                         <BlurFade
                             key={project.title}

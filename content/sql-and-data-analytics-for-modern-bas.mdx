@@ -1,0 +1,57 @@
+---
+title: "SQL for Business Analysts: Uncovering Bottlenecks in Product Data"
+publishedAt: "2026-01-25"
+updatedAt: "2026-01-25"
+author: "Mustafa Pinjari"
+summary: "Essential SQL patterns, window functions, and cohort query recipes that allow BAs to validate assumptions without waiting on data engineering."
+image: "/blog-sql-analytics.png"
+---
+
+Modern Business Analysts cannot rely solely on second-hand summaries or delayed dashboard updates. When investigating customer churn, feature adoption, or system latency spikes, writing production-grade SQL queries directly against data warehouses is a superpower.
+
+## 1. Funnel Drop-off Analysis with Common Table Expressions (CTEs)
+
+To track checkout abandonment step-by-step:
+
+```sql
+WITH checkout_funnel AS (
+  SELECT 
+    session_id,
+    MAX(CASE WHEN step_name = 'cart_viewed' THEN 1 ELSE 0 END) AS reached_cart,
+    MAX(CASE WHEN step_name = 'shipping_entered' THEN 1 ELSE 0 END) AS reached_shipping,
+    MAX(CASE WHEN step_name = 'payment_submitted' THEN 1 ELSE 0 END) AS reached_payment
+  FROM analytics_events
+  WHERE event_time >= NOW() - INTERVAL '30 days'
+  GROUP BY session_id
+)
+SELECT 
+  COUNT(*) AS total_sessions,
+  SUM(reached_cart) AS cart_count,
+  SUM(reached_shipping) AS shipping_count,
+  SUM(reached_payment) AS payment_count,
+  ROUND(100.0 * SUM(reached_shipping) / NULLIF(SUM(reached_cart), 0), 2) AS cart_to_shipping_conv_rate
+FROM checkout_funnel;
+```
+
+## 2. Window Functions for Trend Detection
+
+Window functions let us compute moving averages and identify anomalies without collapsing table rows:
+
+```sql
+SELECT 
+  transaction_date,
+  order_volume,
+  AVG(order_volume) OVER (
+    ORDER BY transaction_date 
+    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+  ) AS rolling_7day_avg
+FROM daily_sales_metrics;
+```
+
+## 3. Data-Driven Requirements
+
+When documenting functional requirements, backing up your claims with exact metric baselines (e.g., *"Step 2 exhibits a 42.8% drop-off primarily due to optional postal validation"*) eliminates subjective debates and aligns stakeholders instantly.
+
+---
+
+> **Related Reading**: Connect product data metrics directly to technical API contracts in [The Technical BA's Blueprint: API Analysis & Workflows](/blog/technical-ba-api-database-workflows).

@@ -21,9 +21,12 @@ const posts = defineCollection({
         const mdx = await compileMDX(context, document, {
             remarkPlugins: [remarkGfm, remarkCodeMeta],
         });
+        const words = document.content.split(/\s+/).filter(Boolean).length;
+        const minutes = Math.max(1, Math.ceil(words / 200));
         return {
-        ...document,
+            ...document,
             mdx,
+            readingTime: `${minutes} min read`,
         };
     },
 });

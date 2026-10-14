@@ -4,9 +4,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import Footer from "@/components/footer";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -20,20 +21,63 @@ const geistMono = Geist_Mono({
   variable: "--font-mono",
 });
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["600", "700", "800"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.name,
+    default: "Mustafa Pinjari | Business Analyst & Technical BA Portfolio",
     template: `%s | ${DATA.name}`,
   },
-  description: DATA.description,
+  description:
+    "Business Analyst & Technical Product Builder based in Pune, India. Specializing in requirements engineering (BRD/FRD), user stories with Gherkin acceptance criteria, SQL diagnostics, BPMN process workflows, and Agile delivery.",
+  keywords: [
+    "Mustafa Pinjari",
+    "Mustafa Pinjari Business Analyst",
+    "Business Analyst portfolio",
+    "Technical Business Analyst",
+    "Entry-Level Business Analyst",
+    "Junior Business Analyst India",
+    "Business Analyst Pune",
+    "Requirements Engineering",
+    "BRD FRD examples",
+    "User Stories Gherkin",
+    "SQL for Business Analysts",
+    "Process Mapping BPMN",
+    "Agile Scrum BA",
+  ],
+  authors: [{ name: DATA.name, url: DATA.url }],
+  creator: DATA.name,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
+    title: "Mustafa Pinjari | Business Analyst & Technical BA Portfolio",
+    description:
+      "Business Analyst with expertise in requirements engineering, process analysis, SQL diagnostics, API workflows, Agile delivery, and AI products. Explore real-world documentation and technical case studies.",
     url: DATA.url,
-    siteName: `${DATA.name}`,
+    siteName: "Mustafa Pinjari Portfolio",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: `${DATA.url}/me.png`,
+        width: 800,
+        height: 800,
+        alt: "Mustafa Pinjari — Business Analyst Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    title: "Mustafa Pinjari | Business Analyst & Technical BA Portfolio",
+    description:
+      "Business Analyst with expertise in requirements engineering, process analysis, SQL diagnostics, API workflows, Agile delivery, and AI products.",
+    card: "summary_large_image",
+    images: [`${DATA.url}/me.png`],
   },
   robots: {
     index: true,
@@ -45,14 +89,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  twitter: {
-    title: `${DATA.name}`,
-    card: "summary_large_image",
-  },
-  verification: {
-    google: "",
-    yandex: "",
   },
 };
 
@@ -67,7 +103,8 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased relative",
           geist.variable,
-          geistMono.variable
+          geistMono.variable,
+          plusJakartaSans.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
@@ -83,9 +120,10 @@ export default function RootLayout({
                 }}
               />
             </div>
-            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
+            <div className="relative z-10 max-w-5xl mx-auto py-12 pb-12 sm:pt-24 sm:pb-16 px-6">
               {children}
             </div>
+            <Footer />
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
