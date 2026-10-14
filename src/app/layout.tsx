@@ -8,6 +8,7 @@ import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import Footer from "@/components/footer";
+import LogRocketProvider from "@/components/logrocket-provider";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -125,6 +126,7 @@ export default function RootLayout({
             </div>
             <Footer />
             <Navbar />
+            <LogRocketProvider />
           </TooltipProvider>
         </ThemeProvider>
       </body>
